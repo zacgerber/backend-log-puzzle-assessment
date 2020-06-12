@@ -51,7 +51,7 @@ When it's all working, opening the index.html in a browser should reveal the ori
 <img src="https://i.ytimg.com/vi/SxvyKqkCXy0/maxresdefault.jpg" width="300" />
 
 ## Part C - Image Slice Descrambling
-The second puzzle involves an image of a very famous place, but depends on some custom sorting. For the first puzzle, the URLs can be sorted alphabetically to order the images correctly. In the sort, the whole URL is used. However, we'll say that if the URL ends in the pattern `-_wordchars-wordchars_.jpg` (e.g., `http://example.com/foo/puzzle/bar-abab-baaa.jpg`), then the URL should be represented by the **second** word in the sort (e.g. "baaa"). So sorting a list of URLs each ending with the word-word.jpg pattern should order the URLs by the second word.
+The second puzzle involves an image of a very famous place, but depends on some custom sorting. For the first puzzle, the URLs can be sorted alphabetically to order the images correctly. In the sort, the whole URL is used. However, for this part, we'll say that if the URL ends in the pattern `bar-_letters-moreletters_.jpg` (e.g., `http://example.com/foo/puzzle/bar-abab-baaa.jpg`), then the URL should be represented by the **last** word (e.g. "baaa") when sorting. So, sorting a list of URLs each ending with the `letters-moreletters`.jpg pattern should order the URLs by whichever word is in the `moreletters` position.
 
 Extend your code to order such URLs properly, and then you should be able to decode the second `place_code.google.com` puzzle which shows a famous place. What place does it show?
 
