@@ -1,5 +1,5 @@
 # Log Puzzle
-For this exercise, you'll use Python code to solve two puzzles. This exercise uses the `urllib` module. Add your code to the `logpuzzle.py` file.
+For this exercise, you'll use Python code to solve two puzzles. This exercise uses the `urllib.request` module. Add your code to the `logpuzzle.py` file.
 
 An image of an animal has been broken into many narrow vertical stripe images. The stripe images are on the internet somewhere, each with its own URL. The URLs are hidden in a web server log file. Your mission is to find the urls and download all image stripes to re-create the original image.
 
@@ -26,7 +26,7 @@ http://code.google.com/something/puzzle-animal-baab.jpg
 ```
 
 ## Part B - Download Images Puzzle
-Complete the `download_images()` function which takes a sorted list of URLs and a destination directory. Download the image from each URL into the given directory, creating the directory first if necessary (see the `os` module for creating a directory, and `urllib.urlretrieve()` for downloading a URL). Name the local image files with a simple scheme like "img0", "img1", "img2", and so on. You may wish to print a helpful "Retrieving..." status output line while downloading each image since it can be slow and its nice to have some indication that the program is working. Each image is a little vertical slice from the original. How do you put the slices together to re-create the original? It can be solved nicely with a little HTML (knowledge of HTML is not required).
+Complete the `download_images()` function which takes a sorted list of URLs and a destination directory. Download the image from each URL into the given directory, creating the directory first if necessary (see the `os` module for creating a directory, and `urllib.request.urlretrieve()` for downloading a URL). Name the local image files with a simple scheme like "img0", "img1", "img2", and so on. You may wish to print a helpful "Retrieving..." status output line while downloading each image since it can be slow and its nice to have some indication that the program is working. Each image is a little vertical slice from the original. How do you put the slices together to re-create the original? It can be solved nicely with a little HTML (knowledge of HTML is not required).
 
 The `download_images()` function should also create an `index.html` file in the directory with an `<img>` tag to show each local image file. The `img` tags should all be on one line together without separation. In this way, the browser displays all the slices together seamlessly. You do not need knowledge of HTML to do this; just create an index.html file that looks like this:
 
