@@ -13,7 +13,7 @@ Here's what a puzzle URL looks like (spread out onto multiple lines):
 HTTP/1.0" 302 528 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
 rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
 """
-
+__author__ = "Zachary Gerber, Mike A., Tiffany Mclean, joseph Hafed, Daniel, Micheal Demory, Mavrick Watts",
 import os
 import re
 import sys
@@ -26,8 +26,23 @@ def read_urls(filename):
     extracting the hostname from the filename itself, sorting
     alphabetically in increasing order, and screening out duplicates.
     """
-    # +++your code here+++
-    pass
+    web_name = "http://" + filename.split('_')[1]
+    urls = set()
+
+    image_cuts = re.findall(r'GET (\/.*?\.jpg)', open(filename).read())
+
+    for image in image_cuts:
+        if '/puzzle/' in image:
+            urls.add(web_name + image)
+
+    return sorted(urls, key=return_last_word)
+
+
+def return_last_word(url):
+    matches = re.search(r'-(\w+)-(\w+).jpg', url)
+    if matches:
+        return matches.group(2)
+    return url
 
 
 def download_images(img_urls, dest_dir):
@@ -38,8 +53,27 @@ def download_images(img_urls, dest_dir):
     to show each local image file.
     Creates the directory if necessary.
     """
-    # +++your code here+++
-    pass
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+
+    os.chdir(dest_dir)
+
+    image_banners = []
+
+    for i, url in enumerate(img_urls):
+        image_name = f'img{i}'
+
+        response = urllib.request
+        response.urlretrieve(url, image_name)
+
+        # image = open(image_name, 'wb')
+        # image.write(response.read())
+
+        image_banners.append('<img src="{0}">'.format(image_name))
+
+    html_file = open('index.html', 'w')
+    html_file.write('<html><body>{0}</body></html>'.format(
+        ''.join(image_banners)))
 
 
 def create_parser():
@@ -58,16 +92,31 @@ def main(args):
 
     if not args:
         parser.print_usage()
+        'usage: [--todir dir] logfile '
         sys.exit(1)
 
-    parsed_args = parser.parse_args(args)
+    value = parser.parse_args(args)
 
-    img_urls = read_urls(parsed_args.logfile)
+    img_urls = read_urls(value.logfile)
 
-    if parsed_args.todir:
-        download_images(img_urls, parsed_args.todir)
+    if value.todir:
+        download_images(img_urls, value.todir)
     else:
         print('\n'.join(img_urls))
+    # parser = create_parser()
+
+    # if not args:
+    #     parser.print_usage()
+    #     sys.exit(1)
+
+    # parsed_args = parser.parse_args(args)
+
+    # img_urls = read_urls(parsed_args.logfile)
+
+    # if parsed_args.todir:
+    #     download_images(img_urls, parsed_args.todir)
+    # else:
+    #     print('\n'.join(img_urls))
 
 
 if __name__ == '__main__':
