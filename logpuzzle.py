@@ -13,7 +13,8 @@ Here's what a puzzle URL looks like (spread out onto multiple lines):
 HTTP/1.0" 302 528 "-" "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US;
 rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6"
 """
-__author__ = "Zachary Gerber, Mike A., Tiffany Mclean, joseph Hafed, Daniel, Micheal Demory, Mavrick Watts",
+__author__ = """Zachary Gerber, Mike A., Tiffany Mclean, joseph Hafed, Daniel,
+Michael DeMory, Mavrick Watts"""
 import os
 import re
 import sys
@@ -29,7 +30,9 @@ def read_urls(filename):
     web_name = "http://" + filename.split('_')[1]
     urls = set()
 
-    image_cuts = re.findall(r'GET (\/.*?\.jpg)', open(filename).read())
+    with open(filename) as f:
+        files = f.read()
+    image_cuts = re.findall(r'GET (\/.*?\.jpg)', files)
 
     for image in image_cuts:
         if '/puzzle/' in image:
